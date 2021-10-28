@@ -5,6 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-JESTEŚ ZALOGOWANY!
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Dodaj">
+    </form>
+    <div>
+    {% for entry in entries %}
+        <h2> {{ entry.title }}</h2>
+        <img src="/media/{{ entry.image }}">
+        <div> {{ entry.content }}</div>
+    {%  endfor %}
+    </div>
 </body>
 </html>

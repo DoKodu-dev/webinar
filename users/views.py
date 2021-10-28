@@ -1,5 +1,7 @@
+from .models import Entry
+from datetime import datetime
 from django.shortcuts import render
-from .forms import MySignupForm
+from .forms import MySignupForm, EntryForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -23,9 +25,24 @@ def register(request):
 
 @login_required
 def panel(request):
+    if request.method == 'POST':
+        form = EntryForm(request.POST, request.FILES)
+        entry = form.save(commit=False)
+        entry.author = request.user
+        entry.pub_date = datetime.now()
+        entry.save()
+
+    form = EntryForm()
+    entries = Entry.objects.order_by('-pub_date')
+
     return render(
         request,
-        'users/panel.html'
+        'users/panel.html',
+        {
+            'form': form,
+            'entries': entries
+        }
+
     )
 
 

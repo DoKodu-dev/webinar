@@ -1,6 +1,14 @@
 from django import forms
+from users.models import Entry
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
+
+class EntryForm(forms.ModelForm):
+
+    class Meta:
+        model = Entry
+        fields = ['title', 'image', 'content']
 
 
 class MySignupForm(UserCreationForm):
