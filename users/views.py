@@ -7,6 +7,17 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 
 
+def main(request):
+    entries = Entry.objects.all()
+    return render(
+        request,
+        'home.html',
+        context={
+            'entries': entries
+        }
+    )
+
+
 def register(request):
     if request.method == 'POST':
         form = MySignupForm(request.POST)
