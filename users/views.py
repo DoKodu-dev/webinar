@@ -11,13 +11,11 @@ from django.contrib.auth.decorators import login_required
 def save_vote(request):
     entry_id = request.POST['entry_id']
     entry = Entry.objects.get(pk=entry_id)
-    response = entry.votes.up(request.user.id)
-    print(response)
-    entry.save()
-
-
+    entry.votes.up(request.user.id)
+    entry = Entry.objects.get(pk=entry_id)
 
     return JsonResponse({
+        'entry_id': entry_id,
         'vote_score': entry.vote_score
     })
 

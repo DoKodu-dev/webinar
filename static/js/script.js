@@ -5,12 +5,13 @@ const save_vote = function (target) {
     formData.append('entry_id', target.entry_id.value);
     formData.append('csrfmiddlewaretoken', target.csrfmiddlewaretoken.value);
 
-    console.log(formData);
-
     fetch('uzytkownik/save_vote', {
         body: formData,
         method: 'post'
-    })
+    }).then(data => data.json()).then(function(data){
+       document.querySelector('.entry-' +data.entry_id).innerHTML = data.vote_score
+    });
+
 }
 
 for (let i = 0; i < forms.length; i++) {
