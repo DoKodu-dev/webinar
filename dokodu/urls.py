@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
+from users.views import main
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('uzytkownik/', include('users.urls'))
+    path('uzytkownik/', include('users.urls')),
+    path('', main, name='main')
 ]
 
 urlpatterns += static(

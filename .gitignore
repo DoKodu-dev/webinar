@@ -1,3 +1,4 @@
 msvenv/
 .idea/
 __pycache__/
+**/*.pyc
