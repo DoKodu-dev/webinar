@@ -1,4 +1,5 @@
 from django.db import models
+from vote.models import VoteModel
 from django.contrib.auth.models import User
 
 
@@ -10,7 +11,7 @@ class Post(models.Model):
     modified = models.DateTimeField(auto_now=True) # data modyfikacji - zawsze gdy klikniemy save
 
 
-class Entry(models.Model):
+class Entry(VoteModel, models.Model):
     class Meta:
         verbose_name_plural = 'Entries'
 

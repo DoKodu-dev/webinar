@@ -1,10 +1,23 @@
 from .models import Entry
 from datetime import datetime
+from django.http import JsonResponse
 from django.shortcuts import render
 from .forms import MySignupForm, EntryForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+
+
+def save_vote(request):
+    entry_id = request.POST['entry_id']
+    entry = Entry.objects.get(pk=entry_id)
+    entry.votes.up(request.user.id)
+    entry = Entry.objects.get(pk=entry_id)
+
+    return JsonResponse({
+        'entry_id': entry_id,
+        'vote_score': entry.vote_score
+    })
 
 
 def main(request):
